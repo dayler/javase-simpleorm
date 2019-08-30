@@ -29,7 +29,6 @@ public final class Persistence {
     public static ColumnDto[] columns(Class<?>clazz) {
         isEntityAnnotationPresent(clazz);
         return Arrays.stream(clazz.getDeclaredFields())
-                     .filter(f -> !f.isAnnotationPresent(Id.class))
                      .map(ColumnDto::of)
                      .filter(Objects::nonNull)
                      .toArray(ColumnDto[]::new);
@@ -38,6 +37,7 @@ public final class Persistence {
     public static ColumnDto[] columnsWithoutPrimaryKey(Class<?>clazz) {
         isEntityAnnotationPresent(clazz);
         return Arrays.stream(clazz.getDeclaredFields())
+                     .filter(f -> !f.isAnnotationPresent(Id.class))
                      .map(ColumnDto::of)
                      .filter(Objects::nonNull)
                      .toArray(ColumnDto[]::new);
@@ -55,14 +55,6 @@ public final class Persistence {
                        .orElseThrow(() -> new NullValueException("Null Entity Annotation class:" + clazz.getName()));
     }
     
-    // TODO Codify the values, for example dates, strings
-    private static String toStringObject(Object obj) {
-        if (obj == null) {
-            return null;
-        }
-        return obj.toString();
-    }
-    
     public static <T>ColumnDto[] getPrimaryKeys(Class<T>clazz) {
         isEntityAnnotationPresent(clazz);
         return Arrays.stream(clazz.getDeclaredFields())
@@ -74,14 +66,12 @@ public final class Persistence {
     
     public static <T>String[]values(T entity) {
         isEntityAnnotationPresent(entity.getClass());
-        Field[] fields = entity.getClass().getDeclaredFields();
         List<String> values = new ArrayList<>();
         try {
-            for (Field field : fields) {
-                field.setAccessible(true);
-                if (field.isAnnotationPresent(Column.class)) {
-                    values.add(toStringObject(field.get(entity)));
-                }
+            ColumnDto[]columns = Persistence.columns(entity.getClass());
+            Map<String, Field>fieldMap = Persistence.toMapField(entity.getClass());
+            for (ColumnDto c : columns) {
+                values.add(c.getDataType().format(fieldMap.get(c.getFieldName()).get(entity)));
             }
         } catch (IllegalArgumentException | IllegalAccessException ex) {
             throw new OperationException("At get value of field.", ex);

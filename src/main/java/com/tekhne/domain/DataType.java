@@ -1,8 +1,8 @@
 package com.tekhne.domain;
 
 public enum DataType {
-    INTEGER(new Class<?>[] {Integer.class, Long.class}),
-    REAL(new Class<?>[] {Float.class, Double.class}),
+    INTEGER(new Class<?>[] {Integer.class, Long.class, int.class, long.class}),
+    REAL(new Class<?>[] {Float.class, Double.class, float.class, double.class}),
     TEXT(new Class<?>[] {String.class}) {
         
         @Override

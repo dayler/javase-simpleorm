@@ -25,7 +25,7 @@ public class InsertQuery<T> extends Query {
         String tableName = Persistence.tableName(entity.getClass());
         String columns = Arrays.stream(Persistence.columns(entity.getClass())).map(ColumnDto::getName).collect(Collectors.joining(","));
         String values = Arrays.stream(Persistence.values(entity)).collect(Collectors.joining(","));
-        return String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, columns, values);
+        return String.format("INSERT INTO %s (%s) VALUES (%s);", tableName, columns, values);
     }
 
 }

@@ -29,7 +29,7 @@ public class SelectAllQuery<T> extends Query {
     public String toSql() {
         String tableName = Persistence.tableName(clazz);
         ColumnDto[]columns = Persistence.columns(clazz);
-        return String.format("SELECT % FROM %s;", Arrays.stream(columns).map(ColumnDto::getName).collect(Collectors.joining(",")), tableName);
+        return String.format("SELECT %s FROM %s;", Arrays.stream(columns).map(ColumnDto::getName).collect(Collectors.joining(",")), tableName);
     }
 
 }

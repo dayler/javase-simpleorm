@@ -13,10 +13,10 @@ public class Persona {
     @Id
     private int id;
     
-    @Column("nombre")
+    @Column(value="nombre", nullable=false)
     private String nombre;
     
-    @Column("aplellido")
+    @Column(value="apellido", nullable=false)
     private String apellido;
     
     /**

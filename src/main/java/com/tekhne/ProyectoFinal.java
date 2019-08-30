@@ -9,7 +9,8 @@ public class ProyectoFinal {
 
     public static void main(String[] args) {
         try {
-            ConnectionManager cm = new ConnectionManager("jdbc:sqlite:D:/JavaFinal/personas.db");
+            //ConnectionManager cm = new ConnectionManager("jdbc:sqlite:D:/JavaFinal/personas.db");
+            ConnectionManager cm = new ConnectionManager("jdbc:sqlite:/tmp/personas.db");
 
             Repositorio<Persona> genteRepo = new Repositorio<>(Persona.class, 
                                                                cm, 
