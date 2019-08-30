@@ -3,7 +3,14 @@ package com.tekhne.domain;
 public enum DataType {
     INTEGER(new Class<?>[] {Integer.class, Long.class}),
     REAL(new Class<?>[] {Float.class, Double.class}),
-    TEXT(new Class<?>[] {String.class}),
+    TEXT(new Class<?>[] {String.class}) {
+        
+        @Override
+        public <T>String format(T value) {
+            return "'" + value + "'";
+        }
+        
+    },
     BLOB(new Class<?>[] {}),
     ;
     
@@ -29,5 +36,9 @@ public enum DataType {
             }
         }
         return BLOB;
+    }
+    
+    public <T>String format(T value) {
+        return value == null? null : value.toString();
     }
 }

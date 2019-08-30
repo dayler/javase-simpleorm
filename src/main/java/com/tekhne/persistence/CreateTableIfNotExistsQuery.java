@@ -1,7 +1,6 @@
 package com.tekhne.persistence;
 
 import java.util.Arrays;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.tekhne.domain.ColumnDto;
@@ -23,17 +22,15 @@ public class CreateTableIfNotExistsQuery extends Query {
     }
 
     @Override
-    public Supplier<String> toSql() {
+    public String toSql() {
         String tableName = Persistence.tableName(entityClass);
         ColumnDto[]columns = Persistence.columns(entityClass);
-        return () -> {
-            StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS ").append(tableName)
-                                                                               .append(" (")
-                                                                               .append(makeCreateColumnsBody(columns))
-                                                                               .append(");");
-            
-            return sb.toString();
-        };
+        StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS ").append(tableName)
+                                                                           .append(" (")
+                                                                           .append(makeCreateColumnsBody(columns))
+                                                                           .append(");");
+
+        return sb.toString();
     }
 
     private static String makeCreateColumnsBody(ColumnDto[] columns) {

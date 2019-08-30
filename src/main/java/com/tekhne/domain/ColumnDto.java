@@ -13,13 +13,15 @@ public class ColumnDto {
     private boolean nullable;
     private boolean unique;
     private DataType dataType;
+    private String fieldName;
     
-    public ColumnDto(String name, boolean primaryKey, boolean nullable, boolean unique, DataType dataType) {
+    public ColumnDto(String name, boolean primaryKey, boolean nullable, boolean unique, DataType dataType, String fieldName) {
         this.name = name;
         this.primaryKey = primaryKey;
         this.nullable = nullable;
         this.unique = unique;
         this.dataType = dataType;
+        this.fieldName = fieldName;
     }
     
     public String getName() {
@@ -42,6 +44,10 @@ public class ColumnDto {
     public DataType getDataType() {
         return dataType;
     }
+    
+    public String getFieldName() {
+        return fieldName;
+    }
 
     public static ColumnDto of(Field field) {
         Column c  = field.getAnnotation(Column.class);
@@ -49,6 +55,6 @@ public class ColumnDto {
             return null;
         }
         Id id = field.getAnnotation(Id.class);
-        return new ColumnDto(c.value(), id != null, c.nullable(), c.unique(), DataType.of(field.getType()));
+        return new ColumnDto(c.value(), id != null, c.nullable(), c.unique(), DataType.of(field.getType()), field.getName());
     }
 }

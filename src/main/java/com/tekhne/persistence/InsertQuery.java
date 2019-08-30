@@ -1,7 +1,6 @@
 package com.tekhne.persistence;
 
 import java.util.Arrays;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.tekhne.domain.ColumnDto;
@@ -22,13 +21,11 @@ public class InsertQuery<T> extends Query {
     }
     
     @Override
-    public Supplier<String> toSql() {
-        return () -> {
-            String tableName = Persistence.tableName(entity.getClass());
-            String columns = Arrays.stream(Persistence.columns(entity.getClass())).map(ColumnDto::getName).collect(Collectors.joining(","));
-            String values = Arrays.stream(Persistence.values(entity)).collect(Collectors.joining(","));
-            return String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, columns, values);
-        };
+    public String toSql() {
+        String tableName = Persistence.tableName(entity.getClass());
+        String columns = Arrays.stream(Persistence.columns(entity.getClass())).map(ColumnDto::getName).collect(Collectors.joining(","));
+        String values = Arrays.stream(Persistence.values(entity)).collect(Collectors.joining(","));
+        return String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, columns, values);
     }
 
 }
