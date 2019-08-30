@@ -1,4 +1,4 @@
-package com.tekhne.persistence.sqlite;
+package com.tekhne.persistence;
 
 public class ConnectionManager {
 

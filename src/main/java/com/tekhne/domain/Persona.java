@@ -7,6 +7,8 @@ import com.tekhne.persistence.Id;
 @Entity("persona")
 public class Persona {
     
+    private static final Persona EMPTY = new Persona();
+    
     @Column("id")
     @Id
     private int id;
@@ -21,7 +23,9 @@ public class Persona {
      * Default constructor, only used by ORM.
      */
     public Persona() {
-        // no op
+        id = 0;
+        nombre = "";
+        apellido = "";
     }
     
     public Persona(int id, String nombre, String apellido) {
@@ -43,7 +47,6 @@ public class Persona {
     }
 
     public static Persona vacia() {
-        // TODO Auto-generated method stub
-        return null;
+        return EMPTY;
     }
 }

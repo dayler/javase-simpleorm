@@ -1,9 +1,9 @@
 package com.tekhne;
 
 import com.tekhne.domain.Persona;
+import com.tekhne.persistence.ConnectionManager;
 import com.tekhne.persistence.Repositorio;
-import com.tekhne.persistence.sqlite.ConnectionManager;
-import com.tekhne.persistence.sqlite.RepositorioPolicy;
+import com.tekhne.persistence.RepositorioPolicy;
 
 public class ProyectoFinal {
 

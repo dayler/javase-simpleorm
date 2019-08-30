@@ -4,8 +4,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.tekhne.domain.Persona;
-import com.tekhne.persistence.sqlite.ConnectionManager;
-import com.tekhne.persistence.sqlite.RepositorioPolicy;
 
 public class Repositorio<T> {
     
