@@ -4,7 +4,7 @@ import com.tekhne.persistence.Column;
 import com.tekhne.persistence.Entity;
 import com.tekhne.persistence.Id;
 
-@Entity("persona")
+@Entity("personas")
 public class Persona {
     
     private static final Persona EMPTY = new Persona();
@@ -48,5 +48,10 @@ public class Persona {
 
     public static Persona vacia() {
         return EMPTY;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("id:%s nombre:%s apellido:%s", id, nombre, apellido);
     }
 }

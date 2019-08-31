@@ -79,7 +79,7 @@ public final class Persistence {
         return values.stream().toArray(String[]::new);
     }
     
-    public static <T>List<T> entityFromRs(Class<T>clazz, ResultSet rs) {
+    public static <T>List<T> entitiesFromRs(Class<T>clazz, ResultSet rs) {
         isEntityAnnotationPresent(clazz);
         ColumnDto[]columns = columns(clazz);
         Map<String, Field>fieldMap = toMapField(clazz);
@@ -96,6 +96,20 @@ public final class Persistence {
             }
             return values;
         } catch (SQLException | InstantiationException | IllegalAccessException ex) {
+            throw new OperationException("At retrieve all objects form RS", ex);
+        }
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static <T>List<T> primitivesFromRs(Class<T>clazz, ResultSet rs) {
+        List<T>values = new LinkedList<>();
+        try {
+            while (rs.next()) {
+                // populate data.
+                values.add((T)rs.getObject(1));
+            }
+            return values;
+        } catch (SQLException ex) {
             throw new OperationException("At retrieve all objects form RS", ex);
         }
     }

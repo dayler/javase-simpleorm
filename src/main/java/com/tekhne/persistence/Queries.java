@@ -26,4 +26,12 @@ public final class Queries {
     public static <T>String update(T entity, Object...ids) {
         return new UpdateQuery<>(entity, ids).toSql();
     }
+    
+    public static <T>String selectAll(Class<T>entityClass) {
+        return new SelectAllQuery<T>(entityClass).toSql();
+    }
+    
+    public static <T>String select(Class<T>entityClass, Object...ids) {
+        return new SelectQuery<>(entityClass, ids).toSql();
+    }
 }

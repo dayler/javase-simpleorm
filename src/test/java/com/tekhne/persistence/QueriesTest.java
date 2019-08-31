@@ -50,4 +50,10 @@ class QueriesTest {
         Persona pepe = new Persona(100, "José Marcelo", "Villanueva Rojas");
         assertEquals("UPDATE persona SET nombre='José Marcelo',apellido='Villanueva Rojas' WHERE id=100;", Queries.update(pepe, 100));
     }
+    
+    @Test
+    void select() {
+        assertEquals("SELECT id,nombre,apellido FROM persona WHERE id=100;", Queries.select(Persona.class, 100));
+    }
+    
 }
